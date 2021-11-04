@@ -4,7 +4,9 @@
 $pass_lenght        = $_POST['lenght'];      //Lenght of the password.
 // Not implemented yet.
 $complexity         = $_POST['complex'];     //Complexity of the password.
-$type_of_pass       = "test";                //Type of password indicates what type.'
+$type_of_pass       = "test";                //Type of password indicates what type.
+$complexchars       = ['(',')','-','_', '=', '+','*','&','$', '#', '!','%', ']', '[', '}','{'];
+
 if($complexity == 0){
   $complexity = 4;
 }
@@ -13,6 +15,17 @@ if($pass_lenght == null){
 }
 if($pass_lenght >= 51){
     $pass_lenght = 50;
+}
+//Complex characters such as *({[/\ $#@ 
+function l5_complex_random_string($length) {
+  $key = '';
+  $keys = array_merge(range(0, 9), range('a', 'z'), range('A', 'Z'), $complexchars(range('0','10')));
+
+  for ($i = 0; $i < $length; $i++) {
+      $key .= $keys[array_rand($keys)];
+  }
+
+  return $key;
 }
 
 //trash code that doesnt work nice but it works kinda but its hell if i want to change anything on the fly and when this project expands this will be a paaaaaaaiin in the ass
@@ -101,7 +114,7 @@ body {
 <form method="POST">
 <div class="mx-auto" style="width: 250px;">
 <ul class="list-group list-group-flush">
-
+<a href="https://github.com/Krekkers/PasswordGenerator">Github</a>
 
 <?php if($pass_lenght == 50){ ?>
     <li class="list-group-item">
